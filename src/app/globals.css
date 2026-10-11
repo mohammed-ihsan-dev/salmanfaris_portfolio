@@ -237,6 +237,14 @@ html:has(.cv-page) body {
   }
 }
 
+/* Slide only, no fade: for large text blocks that are likely the LCP element,
+   which browsers don't count as painted while fully transparent. */
+@keyframes intro-rise {
+  from {
+    transform: translateY(1rem);
+  }
+}
+
 @keyframes intro-frame-reveal {
   from {
     clip-path: inset(100% 0 0 0);
@@ -255,6 +263,11 @@ html:has(.cv-page) body {
 
 .intro-up {
   animation: intro-fade-up 800ms var(--ease-out-expo) backwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+.intro-rise {
+  animation: intro-rise 800ms var(--ease-out-expo) backwards;
   animation-delay: var(--delay, 0ms);
 }
 
@@ -340,6 +353,7 @@ html:has(.cv-page) body {
 
   .intro-nav,
   .intro-up,
+  .intro-rise,
   .intro-word > span,
   .intro-frame,
   .intro-frame > * {

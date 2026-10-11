@@ -31,11 +31,27 @@ Add WebM and MP4 files plus a poster to `public/media/` and fill in `landscape` 
 
 ## Environment
 
-| Variable | Effect |
-| --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Final domain, e.g. `https://salmanfaris.com`. Enables indexing, canonical URL, sitemap and absolute OG URLs. **Unset = noindex everywhere.** |
-| `RESEND_API_KEY`, `CONTACT_TO_EMAIL` | Enable the enquiry form (delivered via [Resend](https://resend.com)). Unset = the section offers a pre-filled email instead. Read at build time. |
-| `CONTACT_FROM_EMAIL` | Sender on a Resend-verified domain. The default test sender only delivers to the Resend account owner. |
+All are optional; see `.env.example`. Set them in Vercel → Project → Settings → Environment Variables (Production). Copy to `.env.local` for local work. Never commit real values.
+
+| Variable | Scope | Effect |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | public | Site address for canonical URLs, Open Graph, sitemap, robots and JSON-LD. Defaults to `https://salmanfaris.online` (`src/lib/site.ts`). |
+| `GOOGLE_SITE_VERIFICATION` | server | Search Console HTML-tag verification code. |
+| `RESEND_API_KEY`, `CONTACT_TO_EMAIL` | server | Enable the enquiry form (delivered via [Resend](https://resend.com)). Unset = the section offers a pre-filled email instead. Read at build time, so redeploy after changing. |
+| `CONTACT_FROM_EMAIL` | server | Sender on a Resend-verified domain. The default test sender only delivers to the Resend account owner. |
+
+Indexing is automatic: Vercel **production** deployments are indexable, while **preview** deployments (`VERCEL_ENV=preview`) get `noindex` and a `Disallow: /` robots.txt.
+
+## Deploying (Vercel)
+
+1. Vercel → Add New → Project → import `mohammed-ihsan-dev/salmanfaris_portfolio`. Framework: Next.js (auto-detected). Defaults for root, build (`next build`) and output. No `vercel.json` is needed.
+2. Add any environment variables above, then deploy.
+3. Project → Settings → Domains → add `salmanfaris.online` (and `www.salmanfaris.online`, set to redirect to the apex). Vercel then shows the exact DNS records to create at the registrar. Use those values; don't copy them from elsewhere.
+4. Once the domain shows "Valid Configuration" and HTTPS works, verify in Google Search Console (Domain property via DNS TXT, or URL-prefix via `GOOGLE_SITE_VERIFICATION`), then submit `https://salmanfaris.online/sitemap.xml`.
+
+Local production test without disturbing a running dev server: `NEXT_DIST_DIR=.next-test npm run build && NEXT_DIST_DIR=.next-test npx next start -p 3100`.
+
+**Media:** don't commit large videos. Host the showreel and project films on a video CDN (e.g. Vercel Blob, Cloudflare R2/Stream, Mux) and put the URLs in `showreel.ts` / `projects.ts`. Remote *images* need their host added to `images.remotePatterns` in `next.config.ts`.
 
 ## Design system
 

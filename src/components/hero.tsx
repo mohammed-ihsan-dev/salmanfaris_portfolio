@@ -48,7 +48,7 @@ export function Hero() {
             ))}
           </h1>
 
-          <p className="intro-up mt-7 max-w-[38ch] text-lead text-muted [text-wrap:pretty] short:mt-4 short:text-base" style={delay(480)}>
+          <p className="intro-rise mt-7 max-w-[38ch] text-lead text-muted [text-wrap:pretty] short:mt-4 short:text-base" style={delay(480)}>
             {hero.intro}
           </p>
 

@@ -9,7 +9,6 @@ import { SiteHeader } from "@/components/site-header";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Frame } from "@/components/media/frame";
 import { PlaceholderArt } from "@/components/media/placeholder-art";
-import { profile } from "@/content/profile";
 import { getProject, projects } from "@/content/projects";
 
 export const dynamicParams = false;
@@ -23,9 +22,13 @@ type Params = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const project = getProject((await params).slug);
   if (!project) return {};
+  const path = `/work/${project.slug}`;
   return {
-    title: `${project.title} — ${profile.name}`,
+    // Rendered through the root template: "<title> | Salman Faris".
+    title: project.title,
     description: project.summary,
+    alternates: { canonical: path },
+    openGraph: { type: "article", url: path, title: project.title, description: project.summary },
     ...(project.preview ? { robots: { index: false, follow: false } } : {}),
   };
 }

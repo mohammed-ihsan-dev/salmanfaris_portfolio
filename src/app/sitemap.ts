@@ -1,11 +1,13 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/content/projects";
+import { absoluteUrl } from "@/lib/site";
 
+/** Only real, public, indexable routes. Layout previews never appear (they don't exist in production). */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const site = process.env.NEXT_PUBLIC_SITE_URL;
-  if (!site) return [];
   return [
-    { url: site, changeFrequency: "monthly", priority: 1 },
-    ...projects.filter((p) => !p.preview).map((p) => ({ url: `${site}/work/${p.slug}`, changeFrequency: "yearly" as const })),
+    { url: absoluteUrl("/"), changeFrequency: "monthly", priority: 1 },
+    ...projects
+      .filter((p) => !p.preview)
+      .map((p) => ({ url: absoluteUrl(`/work/${p.slug}`), changeFrequency: "yearly" as const, priority: 0.7 })),
   ];
 }

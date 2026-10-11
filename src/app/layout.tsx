@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Inter_Tight, Instrument_Serif } from "next/font/google";
 import { MotionProvider } from "@/components/motion-provider";
+import { isIndexable, siteDescription, siteName, siteTitle, siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -14,7 +15,8 @@ const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   subsets: ["latin"],
   weight: "400",
-  style: ["normal", "italic"],
+  // Only the italic is used (accents, numerals); skipping the roman saves a font file.
+  style: "italic",
   display: "swap",
 });
 
@@ -24,25 +26,31 @@ const inter = Inter({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-const description =
-  "Dubai-based video editor and motion graphics artist with 5+ years across commercials, brand content, education and wedding films.";
-
 export const metadata: Metadata = {
-  ...(siteUrl ? { metadataBase: new URL(siteUrl), alternates: { canonical: "/" } } : {}),
-  title: "Salman Faris — Video Editor & Motion Graphics Artist",
-  description,
-  authors: [{ name: "Salman Faris" }],
+  metadataBase: new URL(siteUrl),
+  title: { default: siteTitle, template: `%s | ${siteName}` },
+  description: siteDescription,
+  applicationName: siteName,
+  authors: [{ name: siteName, url: siteUrl }],
+  creator: siteName,
+  alternates: { canonical: "/" },
   openGraph: {
     type: "profile",
-    title: "Salman Faris — Video Editor & Motion Graphics Artist",
-    description,
-    siteName: "Salman Faris",
+    url: "/",
+    title: siteTitle,
+    description: siteDescription,
+    siteName,
     locale: "en_US",
+    firstName: "Salman",
+    lastName: "Faris",
   },
-  twitter: { card: "summary_large_image" },
-  // Indexing switches on only once the final domain is configured.
-  robots: siteUrl ? { index: true, follow: true } : { index: false, follow: false },
+  twitter: { card: "summary_large_image", title: siteTitle, description: siteDescription },
+  robots: isIndexable
+    ? { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } }
+    : { index: false, follow: false },
+  // Search Console HTML-tag verification: set GOOGLE_SITE_VERIFICATION in Vercel (server-only, read at build).
+  ...(process.env.GOOGLE_SITE_VERIFICATION ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } } : {}),
+  formatDetection: { telephone: false, email: false, address: false },
 };
 
 export const viewport: Viewport = {

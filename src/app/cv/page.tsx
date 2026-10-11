@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { about, experience, formatPeriod, profile } from "@/content/profile";
 
 export const metadata: Metadata = {
-  title: "CV — Salman Faris",
+  title: "CV",
+  alternates: { canonical: "/cv" },
   robots: { index: false, follow: false },
 };
 
