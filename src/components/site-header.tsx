@@ -220,6 +220,17 @@ export function SiteHeader() {
                   <Mail aria-hidden className="size-4" />
                   Email
                 </a>
+                {profile.links.instagram && (
+                  <a
+                    href={profile.links.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-11 items-center gap-1.5 rounded-control border border-line px-4 text-small text-fg"
+                  >
+                    <span>Instagram</span>
+                    <ArrowUpRight aria-hidden className="size-3.5 text-muted" />
+                  </a>
+                )}
               </div>
             </div>
           </m.nav>

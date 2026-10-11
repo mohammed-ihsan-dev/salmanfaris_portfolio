@@ -24,6 +24,11 @@ export default function CvPage() {
             </span>
             <a href={`mailto:${profile.links.email}`}>{profile.links.email}</a>
             <a href={profile.links.linkedin}>{profile.links.linkedin.replace("https://www.", "")}</a>
+            {profile.links.instagram && (
+              <a href={profile.links.instagram} target="_blank" rel="noopener noreferrer">
+                {profile.links.instagram.replace("https://www.", "")}
+              </a>
+            )}
           </p>
         </header>
 

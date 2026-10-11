@@ -16,7 +16,7 @@ const personJsonLd = {
   worksFor: { "@type": "Organization", name: profile.current.organization },
   address: { "@type": "PostalAddress", addressLocality: profile.location.city, addressCountry: "AE" },
   email: `mailto:${profile.links.email}`,
-  sameAs: [profile.links.linkedin],
+  sameAs: [profile.links.linkedin, profile.links.instagram].filter(Boolean) as string[],
   knowsLanguage: profile.languages,
   ...(process.env.NEXT_PUBLIC_SITE_URL ? { url: process.env.NEXT_PUBLIC_SITE_URL } : {}),
 };

@@ -15,7 +15,7 @@ All copy and facts live in `src/content`. Components never hard-code them.
 
 | File | What to edit |
 | --- | --- |
-| `src/content/profile.ts` | Experience, skills, education, languages, email/LinkedIn/WhatsApp, about copy |
+| `src/content/profile.ts` | Experience, skills, education, languages, email/LinkedIn/Instagram/WhatsApp, about copy |
 | `src/content/showreel.ts` | Hero showreel sources and poster (empty = neutral placeholder) |
 | `src/content/projects.ts` | Published projects for the gallery and `/work/[slug]` case studies |
 

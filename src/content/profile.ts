@@ -126,6 +126,7 @@ export const profile = {
   links: {
     email: "salmanpersonalac@gmail.com",
     linkedin: "https://www.linkedin.com/in/salman-faris-7bb45528b/",
+    instagram: "https://www.instagram.com/farzeoo",
     /** Digits only, international format. Null until approved for publication. */
     whatsapp: null as string | null,
     cv: "/cv/salman-faris-cv.pdf",

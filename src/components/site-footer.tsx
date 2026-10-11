@@ -32,6 +32,13 @@ export function SiteFooter() {
               LinkedIn<span className="sr-only"> (opens in a new tab)</span>
             </a>
           </li>
+          {profile.links.instagram && (
+            <li>
+              <a href={profile.links.instagram} target="_blank" rel="noopener noreferrer" className="text-muted transition-colors hover:text-fg">
+                Instagram<span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+          )}
           <li>
             <a href={profile.links.cv} download="Salman-Faris-CV.pdf" className="text-muted transition-colors hover:text-fg">
               Download CV

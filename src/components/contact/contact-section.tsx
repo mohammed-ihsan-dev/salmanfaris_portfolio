@@ -10,11 +10,12 @@ const enquiryMailto = `mailto:${profile.links.email}?subject=${encodeURIComponen
 
 export function ContactSection() {
   const formEnabled = Boolean(process.env.RESEND_API_KEY && process.env.CONTACT_TO_EMAIL);
-  const { email, linkedin, whatsapp, cv } = profile.links;
+  const { email, linkedin, instagram, whatsapp, cv } = profile.links;
 
   const recruiterLinks = [
     { label: "Download CV", detail: "PDF · one page", href: cv, download: true },
     { label: "LinkedIn", detail: "Professional profile", href: linkedin, external: true },
+    ...(instagram ? [{ label: "Instagram", detail: "@farzeoo · Reels & motion work", href: instagram, external: true }] : []),
     ...(whatsapp ? [{ label: "WhatsApp", detail: `+${whatsapp}`, href: `https://wa.me/${whatsapp}`, external: true }] : []),
   ];
 
